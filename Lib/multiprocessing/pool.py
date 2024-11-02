@@ -632,11 +632,7 @@ class Pool(object):
 
     @staticmethod
     def _get_tasks(func, it, size):
-        it = iter(it)
-        while 1:
-            x = tuple(itertools.islice(it, size))
-            if not x:
-                return
+        for x in itertools.batched(it, size):
             yield (func, x)
 
     def __reduce__(self):
